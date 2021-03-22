@@ -1,0 +1,594 @@
+{
+	"info": {
+		"_postman_id": "9b33bb71-9da8-4e01-89eb-272e687343d5",
+		"name": "Todoist",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "PROJECT",
+			"item": [
+				{
+					"name": "Create Project",
+					"item": [
+						{
+							"name": "Create a new Project",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "3194286b-1c2b-40c7-8851-b8a178db9ffa",
+										"exec": [
+											"var jsonData = pm.response.json();",
+											"var name = pm.environment.get(\"projectName\");",
+											"",
+											"pm.test(\"Project Name is correct\", function () {",
+											"    pm.expect(jsonData.name).to.eql(name);",
+											"});",
+											"",
+											"pm.environment.set(\"ProjectId\", jsonData.id);"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										},
+										{
+											"key": "password",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "X-Requested-Id",
+										"value": "$(uuidgen)",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"{{projectName}}\"\n}"
+								},
+								"url": {
+									"raw": "{{baseURL}}",
+									"host": [
+										"{{baseURL}}"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "Get Project",
+					"item": [
+						{
+							"name": "Get Project",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "50e47632-b1fd-4037-a287-657eb2d36d03",
+										"exec": [
+											"var id = pm.environment.get(\"ProjectId\");",
+											"",
+											"pm.test(\"Project ID is Correct\", function () {",
+											"    var jsonData = pm.response.json();",
+											"    pm.expect(jsonData.id).to.eql(id);",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "e7e05d2598abee64cc6013791167c333748f14e6",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseURL}}/{{ProjectId}}",
+									"host": [
+										"{{baseURL}}"
+									],
+									"path": [
+										"{{ProjectId}}"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "Update Project",
+					"item": [
+						{
+							"name": "Update Project",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "13ebc0da-2258-4cea-9cfd-5825f24e9c31",
+										"exec": [
+											"",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "e7e05d2598abee64cc6013791167c333748f14e6",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									},
+									{
+										"key": "X-Requested-Id",
+										"type": "text",
+										"value": "$(uuidgen)"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"Updated\"\n}"
+								},
+								"url": {
+									"raw": "{{baseURL}}/{{ProjectId}}",
+									"host": [
+										"{{baseURL}}"
+									],
+									"path": [
+										"{{ProjectId}}"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "Delete Project",
+					"item": [
+						{
+							"name": "Delete Project",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "d0e16fd7-887e-447d-a1f3-dc587101dfcf",
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{baseURL}}/{{ProjectId}}",
+									"host": [
+										"{{baseURL}}"
+									],
+									"path": [
+										"{{ProjectId}}"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "TASK",
+			"item": [
+				{
+					"name": "Get Active Tasks",
+					"item": [
+						{
+							"name": "Get Active Task",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseTaskURL}}",
+									"host": [
+										"{{baseTaskURL}}"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "ef646c39-7fe9-46bd-bd1a-139f9af927c5",
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "ace7abba-8ce4-4123-a1cd-65f5b0ba3222",
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "Create a New Task",
+					"item": [
+						{
+							"name": "Create a New Task",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "a189d261-1d95-4b03-ace7-4ffa7bb5a753",
+										"exec": [
+											"var jsonData = pm.response.json();",
+											"pm.environment.set(\"taskId\", jsonData.id);",
+											"",
+											"pm.test(\"Task Content is correct\", function () {",
+											"    pm.expect(jsonData.content).to.eql(\"Adding New Task\");",
+											"});",
+											"",
+											"pm.test(\"Response time is less than 200ms\", function () {",
+											"    pm.expect(pm.response.responseTime).to.be.below(200);",
+											"});",
+											"",
+											"pm.test(\"Status code name has string\", function () {",
+											"    pm.response.to.have.status(\"OK\");",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "X-Requested-Id",
+										"value": "$(uuidgen)",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"content\": \"Adding New Task\", \"due_string\": \"tomorrow at 12:00\", \"due_lang\": \"en\", \"priority\": 4,\n    \"project_id\": {{ProjectId}},\n    \"completed\": false\n}\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseTaskURL}}",
+									"host": [
+										"{{baseTaskURL}}"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "Get an Active Task",
+					"item": [
+						{
+							"name": "Get an Active Task",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "88e17fa4-897a-4f15-9f2d-b3ba2fb892d3",
+										"exec": [
+											"var id = pm.environment.get(\"taskId\");",
+											"",
+											"pm.test(\"taskId ID is Correct\", function () {",
+											"    var jsonData = pm.response.json();",
+											"    pm.expect(jsonData.id).to.eql(id);",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseTaskURL}}/{{taskId}}",
+									"host": [
+										"{{baseTaskURL}}"
+									],
+									"path": [
+										"{{taskId}}"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "Update a Task",
+					"item": [
+						{
+							"name": "Update a Task",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "e534f554-f927-4a41-84b9-3947b733243e",
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "X-Requested-Id",
+										"value": "$(uuidgen)",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"content\": \"Testing task Updated\", \"due_string\": \"Monday at 12:00\", \"due_lang\": \"en\", \"priority\": 4\n}"
+								},
+								"url": {
+									"raw": "{{baseTaskURL}}/{{taskId}}",
+									"host": [
+										"{{baseTaskURL}}"
+									],
+									"path": [
+										"{{taskId}}"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "Change a task Status to Complete",
+					"item": [
+						{
+							"name": "Close a Task",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "{{baseTaskURL}}/{{taskId}}/close",
+									"host": [
+										"{{baseTaskURL}}"
+									],
+									"path": [
+										"{{taskId}}",
+										"close"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "Reopen a Task",
+					"item": [
+						{
+							"name": "Reopen a Task",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "{{baseTaskURL}}/{{taskId}}/reopen",
+									"host": [
+										"{{baseTaskURL}}"
+									],
+									"path": [
+										"{{taskId}}",
+										"reopen"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "Delete Task",
+					"item": [
+						{
+							"name": "Delete Taks",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{baseTaskURL}}/{{taskId}}",
+									"host": [
+										"{{baseTaskURL}}"
+									],
+									"path": [
+										"{{taskId}}"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "0cdb2924-c164-4754-8e03-b2874d834166",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "db22063e-a815-4fc2-b37b-0f52e851efaf",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			],
+			"protocolProfileBehavior": {}
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "{{token}}",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "6a0cab88-8d92-4207-9fb2-0783278afc73",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "721f9814-d9ab-4367-a243-5b918f39b03e",
+				"type": "text/javascript",
+				"exec": [
+					"pm.test(\"Status code is 2xx\", function () {",
+					"    pm.response.to.be.success;",
+					"});"
+				]
+			}
+		}
+	],
+	"protocolProfileBehavior": {}
+}

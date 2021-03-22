@@ -1,0 +1,14 @@
+{
+  "name": "assessment2",
+  "version": "1.0.0",
+  "description": "Using postman as API test and Newman for reports",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Elizabeth Cobian",
+  "license": "ISC",
+  "dependencies": {
+    "newman": "^5.1.2"
+  }
+}
